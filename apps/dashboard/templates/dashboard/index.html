@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Wish List</title>
+	<style type="text/css">
+        body{
+            font-family: sans-serif;
+            background-color: black;
+            color: #00ff00;
+        }
+
+        .container {
+          display: flex;
+          flex-direction: column;
+          padding: 0 15%;
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          width: 300px;
+        }
+
+        table {
+            margin-top: 15px;
+            width: 80%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            text-align: center;
+        }
+
+        th,
+        td {
+          border: 1px solid silver;
+        }
+
+        td {
+          padding: 0 5px;
+        }
+
+        input.delete {
+          background-color: red;
+          color: white;
+        }
+        a{
+        	float: right;
+        }
+        .action{
+        	float: none;
+        	margin: 0;
+        }
+        #itemname{
+        	float: none;
+        }
+    </style>
+</head>
+<body>
+
+	<a id="logout" href="/logout">Logout</a>
+	<h1>Hello, {{ request.session.user.name }}</h1>
+	<h3>Your Wish List</h3>
+	<table>
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Added By</th>
+            <th>Date Added</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+
+        <tr>
+            <td><a id="itemname" href="/wish_items/{{item.id}}"> {{item.itemname}} </a></td>
+            <td>{{request.session.user.name}}</td>
+            <td>{{item.created_at | date:"F jS, Y"}}</td>
+            <td><a class="action" href="destroy/{{item.id}}/">Remove</a> || <a class="action" href="destroy/{{item.id}}/">Delete</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h3>Other Users' Wish List</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Added By</th>
+            <th>Date Added</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for other in others %}
+
+        <tr>
+            <td>{{other.itemname}}</td>
+            <td>{{other.name}}</td>
+            <td>{other.created_at | date:"F jS, Y"}}</td>
+            <td><a class="action" href="destroy/{{item.id}}/">Remove</a> || <a class="action" href="destroy/{{item.id}}/">Delete</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        <a href="/wish_items/create">Add Item</a>
+</body>
+</html>

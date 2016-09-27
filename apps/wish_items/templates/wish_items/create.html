@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create Item</title>
+	<style type="text/css">
+		h3{
+		
+		}
+		form{
+			display: inline-block;
+		}
+		a{
+			float: right;
+			margin-right: 20px;
+		}
+		#val{
+			font-size: .75em;
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<a id="logout" href="/logout">Logout</a><a href="/dashboard">Home</a>
+	<h1>Create A New Wish List Item</h1>
+	<h3>Item/Product</h3>
+	<form action="/wish_items/process" method="post">
+	{% csrf_token %}
+		<input type="text" name="itemname">
+		<input type="submit" name="subimt" value="Add">
+		<br>
+	<p id="val">Must be at least 3 characters long</p>
+		
+	</form>
+</body>
+</html>
